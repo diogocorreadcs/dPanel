@@ -21,6 +21,10 @@
   <a href="https://typescriptlang.org" target="_blank">
     <img src="https://img.shields.io/badge/TypeScript-181717?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript"/>
   </a>
+  </a>
+  <a href="LICENSE" target="_blank">
+    <img src="https://img.shields.io/badge/License-MIT-181717?style=for-the-badge" alt="License"/>
+  </a>
 </p>
 
 ---
