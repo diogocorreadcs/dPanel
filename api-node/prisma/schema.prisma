@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model BountyActive {
+  target_uuid  String   @id @db.VarChar(36)
+  target_name  String   @db.VarChar(16)
+  total_amount Float
+  created_at   BigInt
+
+  @@map("dbounty_active")
+}
+
+model BountyContributor {
+  target_uuid      String @db.VarChar(36)
+  contributor_uuid String @db.VarChar(36)
+  amount           Float
+
+  @@id([target_uuid, contributor_uuid])
+  @@map("dbounty_contributors")
+}
+
+model BountyStats {
+  player_uuid      String @id @db.VarChar(36)
+  player_name      String @db.VarChar(16)
+  bounties_claimed Int    @default(0)
+  total_earned     Float  @default(0)
+
+  @@map("dbounty_stats")
+}
+
+model Clan {
+  name           String       @id @db.VarChar(16)
+  tag            String       @db.VarChar(4)
+  leader_uuid    String       @db.VarChar(36)
+  activity_score BigInt       @default(0)
+  updated_at     DateTime     @updatedAt
+  members        ClanMember[]
+  logs           ClanLog[]
+
+  @@map("dclans_clans")
+}
+
+model ClanMember {
+  player_uuid String @id @db.VarChar(36)
+  clan_name   String @db.VarChar(16)
+  clan        Clan   @relation(fields: [clan_name], references: [name], onDelete: Cascade)
+
+  @@map("dclans_members")
+}
+
+model ClanLog {
+  id          Int     @id @default(autoincrement())
+  clan_name   String  @db.VarChar(16)
+  timestamp   BigInt
+  action      String  @db.VarChar(64)
+  player_uuid String  @db.VarChar(36)
+  actor_uuid  String? @db.VarChar(36)
+  clan        Clan    @relation(fields: [clan_name], references: [name], onDelete: Cascade)
+
+  @@map("dclans_logs")
+}

@@ -1,0 +1,20 @@
+# Dependências e Ambientes
+node_modules/
+venv/
+.venv/
+__pycache__/
+
+# Arquivos de ambiente (NUNCA subir senhas reais)
+.env
+.env.local
+.env.*.local
+
+# Builds e Logs
+.next/
+dist/
+build/
+*.log
+
+# Editores
+.vscode/
+.idea/
